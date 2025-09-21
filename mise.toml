@@ -1,0 +1,22 @@
+[tools]
+go = "1.24.5"
+
+[tasks.build]
+description = "Buid ghget cli app."
+run = """
+mkdir -p bin
+go build -o ./bin/ghget ghget.go
+cp ./bin/ghget ~/mybin
+"""
+sources = ["go.mod", "ghget.go", "*/*.go"]
+outputs = ["./bin/ghget"]
+
+[tasks.go]
+description = "Run app"
+depends = "build"
+run = "./bin/ghget"
+
+
+[tasks.clean]
+description = "Clean build directory"
+run = "rm -rf ./bin"
