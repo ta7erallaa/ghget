@@ -79,7 +79,7 @@ func (cfg *FlagConfig) IsOnlyOneFalgSet() bool {
 	return cfg.Name != "" || cfg.Branch != "" || cfg.Repo != ""
 }
 
-func (cfg *FlagConfig) IsAllFalgNotSet() bool {
+func (cfg *FlagConfig) IsAllFalgSet() bool {
 	return cfg.Name != "" && cfg.Branch != "" && cfg.Repo != ""
 }
 
@@ -92,4 +92,3 @@ func (cfg *FlagConfig) String() string {
 		cfg.Filename,
 	)
 }
-
