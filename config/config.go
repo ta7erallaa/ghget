@@ -8,8 +8,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-
-	"github.com/ta7eralla/ghget/utils"
 )
 
 const (
@@ -60,10 +58,6 @@ func (cfg *Config) Read() error {
 // TODO: Add atomic file write
 
 func (cfg *Config) Write() error {
-	if cfg.IsNewFlagsEqualConfigValues() {
-		return utils.ErrorEqualValue
-	}
-
 	fmt.Println("Writing config file....")
 
 	filePath, err := cfg.getConfigFilePath()
@@ -94,12 +88,9 @@ func (cfg *Config) IsNewFlagsEqualConfigValues() bool {
 		return false
 	}
 
-	if cfg.Name != oldCfg.Name && cfg.Branch != oldCfg.Branch && cfg.Repo !=
-		oldCfg.Repo {
-		return false
-	}
-
-	return true
+	return cfg.Name == oldCfg.Name &&
+		cfg.Branch == oldCfg.Branch &&
+		cfg.Repo == oldCfg.Repo
 }
 
 func readOldConfig() (Config, error) {
