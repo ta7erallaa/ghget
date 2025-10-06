@@ -58,8 +58,6 @@ func (cfg *Config) Read() error {
 // TODO: Add atomic file write
 
 func (cfg *Config) Write() error {
-	fmt.Println("Writing config file....")
-
 	filePath, err := cfg.getConfigFilePath()
 	if err != nil {
 		return err
