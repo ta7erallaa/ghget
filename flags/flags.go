@@ -9,10 +9,10 @@ import (
 )
 
 type FlagConfig struct {
-	Name     string
-	Repo     string
-	Branch   string
-	Filename []string
+	Name      string
+	Repo      string
+	Branch    string
+	Filenames []string
 }
 
 func Load() (*FlagConfig, error) {
@@ -38,7 +38,7 @@ func Load() (*FlagConfig, error) {
 
 	flag.Parse()
 
-	fcfg.Filename = flag.Args()
+	fcfg.Filenames = flag.Args()
 
 	if err := fcfg.ValidateFilename(); err != nil {
 		return nil, err
@@ -48,11 +48,11 @@ func Load() (*FlagConfig, error) {
 }
 
 func (cfg *FlagConfig) ValidateFilename() error {
-	if len(cfg.Filename) == 0 {
+	if len(cfg.Filenames) == 0 {
 		return errors.New("missing file name")
 	}
 
-	if len(cfg.Filename) > 1 {
+	if len(cfg.Filenames) > 1 {
 		return errors.New("only accept one file for right now")
 	}
 
@@ -61,25 +61,25 @@ func (cfg *FlagConfig) ValidateFilename() error {
 
 func (cfg *FlagConfig) ValidateFlags() error {
 	if cfg.Name == "" {
-		return errors.New("missing name flag")
+		return errors.New("(n)ame flag is empty")
 	}
 
 	if cfg.Branch == "" {
-		return errors.New("missing branch flag")
+		return errors.New("(b)ranch flag is empty")
 	}
 
 	if cfg.Repo == "" {
-		return errors.New("missing repo flag")
+		return errors.New("(r)epo flag is empty")
 	}
 
 	return nil
 }
 
-func (cfg *FlagConfig) IsOnlyOneFalgSet() bool {
+func (cfg *FlagConfig) IsOneFlagSet() bool {
 	return cfg.Name != "" || cfg.Branch != "" || cfg.Repo != ""
 }
 
-func (cfg *FlagConfig) IsAllFalgSet() bool {
+func (cfg *FlagConfig) IsAllFlagSet() bool {
 	return cfg.Name != "" && cfg.Branch != "" && cfg.Repo != ""
 }
 
@@ -89,6 +89,6 @@ func (cfg *FlagConfig) String() string {
 		cfg.Name,
 		cfg.Repo,
 		cfg.Branch,
-		cfg.Filename,
+		cfg.Filenames,
 	)
 }
