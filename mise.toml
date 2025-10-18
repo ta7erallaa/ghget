@@ -1,5 +1,5 @@
 [tools]
-go = "1.24.5"
+go = "1.25.3"
 
 [tasks.build]
 description = "Buid ghget cli app."
@@ -15,7 +15,6 @@ outputs = ["./bin/ghget"]
 description = "Run app"
 depends = "build"
 run = "./bin/ghget"
-
 
 [tasks.clean]
 description = "Clean build directory"
