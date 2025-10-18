@@ -1,3 +1,4 @@
+// Package client
 package client
 
 import (
@@ -11,10 +12,10 @@ type Client struct {
 	httpClient *http.Client
 }
 
-func New(timeout time.Duration) *Client {
+func NewClient() *Client {
 	return &Client{
 		httpClient: &http.Client{
-			Timeout: timeout,
+			Timeout: 2 * time.Minute,
 		},
 	}
 }
