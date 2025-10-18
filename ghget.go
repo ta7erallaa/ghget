@@ -6,14 +6,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/ta7eralla/ghget/client"
 	"github.com/ta7eralla/ghget/config"
 	"github.com/ta7eralla/ghget/downloader"
 	"github.com/ta7eralla/ghget/flags"
 )
 
-// TODO:
-// Support more files.
-// Fix typos in function names
+// TODO: Support more files. Fix typos in function names
 // Support one link like wget
 // add flag to specify location of file
 
@@ -38,7 +37,9 @@ func main() {
 
 	filenames := flagConfig.Filenames
 
-	downloader := downloader.New()
+	client := client.NewClient()
+
+	downloader := downloader.NewDownloader(client)
 	if err := downloader.DownloadFromConfig(fileConfig, filenames); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
@@ -63,4 +64,3 @@ func getConfig(fcfg *flags.FlagConfig) (*config.Config, error) {
 	}
 	return cfg, nil
 }
-

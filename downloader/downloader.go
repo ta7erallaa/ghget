@@ -1,3 +1,4 @@
+// Package downloader
 package downloader
 
 import (
@@ -5,19 +6,18 @@ import (
 	"io"
 	"os"
 	"strings"
-	"time"
 
-	"github.com/ta7eralla/ghget/client"
 	"github.com/ta7eralla/ghget/config"
+	"github.com/ta7eralla/ghget/internal"
 )
 
 type Downloader struct {
-	client *client.Client
+	client internal.Client
 }
 
-func New() *Downloader {
+func NewDownloader(client internal.Client) *Downloader {
 	return &Downloader{
-		client: client.New(2 * time.Minute),
+		client: client,
 	}
 }
 
