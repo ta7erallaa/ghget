@@ -4,7 +4,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
+	"time"
 
 	"github.com/ta7eralla/ghget/client"
 	"github.com/ta7eralla/ghget/config"
@@ -36,8 +38,9 @@ func main() {
 	}
 
 	filenames := flagConfig.Filenames
+	httpClient := &http.Client{Timeout: 2 * time.Minute}
 
-	client := client.NewClient()
+	client := client.NewClient(httpClient)
 
 	downloader := downloader.NewDownloader(client)
 	if err := downloader.DownloadFromConfig(fileConfig, filenames); err != nil {

@@ -5,18 +5,15 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 )
 
 type Client struct {
 	httpClient *http.Client
 }
 
-func NewClient() *Client {
+func NewClient(httpClient *http.Client) *Client {
 	return &Client{
-		httpClient: &http.Client{
-			Timeout: 2 * time.Minute,
-		},
+		httpClient: httpClient,
 	}
 }
 
